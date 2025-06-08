@@ -16,7 +16,8 @@ public class PatientMapper {
                         c.getId(),
                         c.getSummary(),
                         c.getTags(),
-                        c.getConversation()
+                        c.getConversation(),
+                        c.getConsultationDateTime().toString()
                 ))
                 .collect(Collectors.toList());
 
