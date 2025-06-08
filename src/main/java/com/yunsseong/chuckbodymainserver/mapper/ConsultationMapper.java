@@ -14,7 +14,8 @@ public class ConsultationMapper {
                 consultation.getDoctor().getId(),
                 consultation.getSummary(),
                 consultation.getTags(),
-                consultation.getConversation()
+                consultation.getConversation(),
+                consultation.getConsultationDateTime().toString()
         );
     }
 }

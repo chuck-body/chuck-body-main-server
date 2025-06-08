@@ -6,6 +6,7 @@ public record ConsultationResponseDto(
     Long doctorId,
     String summary,
     String tags,
-    String conversation
+    String conversation,
+    String consultationDateTime
 ) {
 }

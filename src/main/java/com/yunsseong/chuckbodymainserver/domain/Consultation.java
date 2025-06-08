@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 public class Consultation {
@@ -21,6 +23,9 @@ public class Consultation {
     @ManyToOne
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
+
+    @Setter
+    private LocalDateTime consultationDateTime;
 
     @Lob
     @Setter
