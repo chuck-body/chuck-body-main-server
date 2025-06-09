@@ -3,6 +3,7 @@ package com.yunsseong.chuckbodymainserver.service;
 import com.yunsseong.chuckbodymainserver.common.exception.BusinessException;
 import com.yunsseong.chuckbodymainserver.common.exception.CommonStatusCode;
 import com.yunsseong.chuckbodymainserver.domain.Patient;
+import com.yunsseong.chuckbodymainserver.dto.PatientCreateRequest;
 import com.yunsseong.chuckbodymainserver.repository.PatientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,11 @@ public class PatientService {
 
     private final PatientRepository patientRepository;
 
-    public Patient createPatient(Patient patient) {
+    public Patient createPatient(PatientCreateRequest request) {
+        Patient patient = Patient.builder()
+                .name(request.name())
+                .birthDate(request.birthDate())
+                .build();
         return patientRepository.save(patient);
     }
 

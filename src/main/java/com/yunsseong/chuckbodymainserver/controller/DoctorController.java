@@ -3,6 +3,7 @@ package com.yunsseong.chuckbodymainserver.controller;
 import com.yunsseong.chuckbodymainserver.common.dto.ApiResponse;
 import com.yunsseong.chuckbodymainserver.common.dto.ApiResponseFactory;
 import com.yunsseong.chuckbodymainserver.domain.Doctor;
+import com.yunsseong.chuckbodymainserver.dto.DoctorCreateRequest;
 import com.yunsseong.chuckbodymainserver.dto.DoctorResponseDto;
 import com.yunsseong.chuckbodymainserver.mapper.DoctorMapper;
 import com.yunsseong.chuckbodymainserver.service.DoctorService;
@@ -21,8 +22,8 @@ public class DoctorController {
     private final DoctorMapper doctorMapper;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<DoctorResponseDto>> createDoctor(@RequestBody Doctor doctor) {
-        Doctor savedDoctor = doctorService.createDoctor(doctor);
+    public ResponseEntity<ApiResponse<DoctorResponseDto>> createDoctor(@RequestBody DoctorCreateRequest request) {
+        Doctor savedDoctor = doctorService.createDoctor(request);
         return ApiResponseFactory.success(doctorMapper.toDto(savedDoctor));
     }
 
