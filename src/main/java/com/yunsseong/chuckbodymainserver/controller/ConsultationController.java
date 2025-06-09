@@ -27,11 +27,12 @@ public class ConsultationController {
     public ResponseEntity<ApiResponse<ConsultationResponseDto>> createConsultation(
             @RequestParam Long doctorId,
             @RequestParam Long patientId,
+            @RequestParam Long speakerNumber,
             @RequestParam MultipartFile voiceFile
     ) throws IOException {
         Consultation consultation = new Consultation();
         consultation.setVoice(voiceFile.getBytes());
-        Consultation savedConsultation = consultationService.createConsultation(doctorId, patientId, consultation);
+        Consultation savedConsultation = consultationService.createConsultation(doctorId, patientId, speakerNumber, consultation);
         return ApiResponseFactory.success(consultationMapper.toDto(savedConsultation));
     }
 

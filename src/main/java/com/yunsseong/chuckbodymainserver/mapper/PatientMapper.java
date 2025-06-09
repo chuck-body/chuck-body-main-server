@@ -14,6 +14,7 @@ public class PatientMapper {
         List<PatientResponseDto.ConsultationSimpleDto> consultations = patient.getConsultation().stream()
                 .map(c -> new PatientResponseDto.ConsultationSimpleDto(
                         c.getId(),
+                        c.getSpeakerNumber(),
                         c.getSummary(),
                         c.getTags(),
                         c.getConversation(),

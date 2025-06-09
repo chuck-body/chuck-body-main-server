@@ -33,6 +33,9 @@ public class Consultation {
     private byte[] voice;
 
     @Setter
+    private Long speakerNumber;
+
+    @Setter
     private String summary;
 
     @Setter

@@ -12,6 +12,7 @@ public class ConsultationMapper {
                 consultation.getId(),
                 consultation.getPatient().getId(),
                 consultation.getDoctor().getId(),
+                consultation.getSpeakerNumber(),
                 consultation.getSummary(),
                 consultation.getTags(),
                 consultation.getConversation(),

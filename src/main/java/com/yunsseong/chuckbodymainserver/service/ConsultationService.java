@@ -27,12 +27,13 @@ public class ConsultationService {
     private final ApplicationEventPublisher eventPublisher;
 
     @Transactional
-    public Consultation createConsultation(Long doctorId, Long patientId, Consultation consultation) {
+    public Consultation createConsultation(Long doctorId, Long patientId, Long speakerNumber, Consultation consultation) {
         Doctor doctor = doctorRepository.findById(doctorId)
                 .orElseThrow(() -> new BusinessException(CommonStatusCode.NOT_FOUND));
         Patient patient = patientRepository.findById(patientId)
                 .orElseThrow(() -> new BusinessException(CommonStatusCode.NOT_FOUND));
 
+        consultation.setSpeakerNumber(speakerNumber);
         consultation.setConsultationDateTime(LocalDateTime.now());
         consultation.setDoctor(doctor);
         consultation.setPatient(patient);
@@ -41,6 +42,7 @@ public class ConsultationService {
 
         eventPublisher.publishEvent(new ConsultationCreatedEvent(
                 savedConsultation.getId(),
+                savedConsultation.getSpeakerNumber(),
                 savedConsultation.getVoice()
         ));
         return savedConsultation;

@@ -9,5 +9,5 @@ public record PatientResponseDto(
     LocalDate birthDate,
     List<ConsultationSimpleDto> consultations
 ) {
-    public record ConsultationSimpleDto(Long id, String summary, String tags, String conversation, String consultationDateTime) {}
+    public record ConsultationSimpleDto(Long id, Long speakerNumber, String summary, String tags, String conversation, String consultationDateTime) {}
 }
