@@ -13,7 +13,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,12 +29,14 @@ public class ConsultationService {
     private final ApplicationEventPublisher eventPublisher;
 
     @Transactional
-    public Consultation createConsultation(Long doctorId, Long patientId, Long speakerNumber, Consultation consultation) {
+    public Consultation createConsultation(Long doctorId, Long patientId, Long speakerNumber, MultipartFile file) throws IOException {
+        Consultation consultation = new Consultation();
         Doctor doctor = doctorRepository.findById(doctorId)
                 .orElseThrow(() -> new BusinessException(CommonStatusCode.NOT_FOUND));
         Patient patient = patientRepository.findById(patientId)
                 .orElseThrow(() -> new BusinessException(CommonStatusCode.NOT_FOUND));
 
+        consultation.setVoice(file.getBytes());
         consultation.setSpeakerNumber(speakerNumber);
         consultation.setConsultationDateTime(LocalDateTime.now());
         consultation.setDoctor(doctor);
@@ -40,10 +44,13 @@ public class ConsultationService {
 
         Consultation savedConsultation = consultationRepository.save(consultation);
 
+        String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+
         eventPublisher.publishEvent(new ConsultationCreatedEvent(
                 savedConsultation.getId(),
                 savedConsultation.getSpeakerNumber(),
-                savedConsultation.getVoice()
+                savedConsultation.getVoice(),
+                extension
         ));
         return savedConsultation;
     }

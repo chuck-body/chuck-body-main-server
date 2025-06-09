@@ -30,9 +30,7 @@ public class ConsultationController {
             @RequestParam Long speakerNumber,
             @RequestParam MultipartFile voiceFile
     ) throws IOException {
-        Consultation consultation = new Consultation();
-        consultation.setVoice(voiceFile.getBytes());
-        Consultation savedConsultation = consultationService.createConsultation(doctorId, patientId, speakerNumber, consultation);
+        Consultation savedConsultation = consultationService.createConsultation(doctorId, patientId, speakerNumber, voiceFile);
         return ApiResponseFactory.success(consultationMapper.toDto(savedConsultation));
     }
 

@@ -41,7 +41,7 @@ public class ConsultationEventListener {
             body.add("audio_file", new ByteArrayResource(event.voiceFile()) {
                 @Override
                 public String getFilename() {
-                    return UUID.randomUUID() + ".wav";
+                    return UUID.randomUUID() + "." + event.extension();
                 }
             });
 
